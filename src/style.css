@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*.main{*/
+/*    width: 100%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
+
+/*button{*/
+/*    !*width: 2em;*!*/
+/*    !*height: 2em;*!*/
+/*    padding: 0px;*/
+
+/*}*/
+
+
+/*#title{*/
+/*    width: 75%;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    background-color: #e4e2e2;*/
+/*    border-radius: 15px;*/
+/*}*/
+
+/*.card{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+
+/*#title h2{*/
+/*    !*color: #ff9090;*!*/
+/*}*/
+
+/*#title button{*/
+/*    width: 3em;*/
+/*    height: 3em;*/
+/*}*/
+
+/*.list{*/
+/*    width: 20em;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    margin: 5px;*/
+/*}*/
+
+/*.cardButtons{*/
+/*    align-self: flex-end;*/
+/*}*/
+
+/*.cardButtons button{*/
+/*    margin: 4px;*/
+/*}*/
+
+/*img{*/
+/*    width: 1.5em;*/
+/*    height: 1.5em;*/
+/*}*/
+
+/*table {*/
+/*    border-collapse: collapse;*/
+/*    border: 2px solid rgb(140 140 140);*/
+/*}*/
+/*th {*/
+/*    border: 1px solid rgb(140 140 140);*/
+/*    padding: 5px;*/
+/*}*/
+
+/*td {*/
+/*    border: 1px solid rgb(160 160 160);*/
+/*    padding: 8px 10px;*/
+/*}*/
+
+/*#dialogList{*/
+/*    align-self: center;*/
+/*}*/
+
+/*dialog::backdrop{*/
+/*    background: salmon;*/
+/*}*/
