@@ -2,6 +2,8 @@
 import TaskVue from "./Task.vue";
 import { computed, ref } from "vue";
 import { List } from "../types/List.ts";
+import { useDefaultList } from "../js/DefaultList.ts";
+import { storeToRefs } from "pinia";
 
 const props = withDefaults(
   defineProps<{
@@ -12,6 +14,9 @@ const props = withDefaults(
     readOnly: false,
   },
 );
+
+const { taskList } = storeToRefs(useDefaultList());
+
 const emits = defineEmits<{
   (e: "addTask", value: number, msgName: string, msgDescr: string): void;
   (e: "delList", value: number): void;
@@ -40,15 +45,11 @@ const updateSortType = () => {
 
 const tasks = computed(() => {
   if (sortType.value === "none") {
-    return props.list.tasks.filter((task) => !task.checked);
+    return props.list.tasks;
   } else if (sortType.value === "asc") {
-    return [...props.list.tasks]
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .filter((task) => !task.checked);
+    return [...props.list.tasks].sort((a, b) => a.name.localeCompare(b.name));
   } else {
-    return [...props.list.tasks]
-      .sort((a, b) => b.name.localeCompare(a.name))
-      .filter((task) => !task.checked);
+    return [...props.list.tasks].sort((a, b) => b.name.localeCompare(a.name));
   }
 });
 
@@ -59,6 +60,26 @@ const delTask = (id: string) => {
 
   if (index >= 0) {
     props.list.tasks.splice(index, 1);
+  }
+};
+
+const updateTaskChecked = (value: { checked: boolean; id: string }) => {
+  const taskIndex = props.list.tasks.findIndex((task) => task.id === value.id);
+
+  console.log(taskIndex);
+  if (taskIndex < 0) {
+    return;
+  }
+
+  props.list.tasks[taskIndex].checked = value.checked;
+
+  console.log(value.checked);
+  if (value.checked) {
+    taskList.value = [...taskList.value, props.list.tasks[taskIndex]];
+  } else {
+    taskList.value = taskList.value.filter(
+      (task) => task.id !== props.list.tasks[taskIndex].id,
+    );
   }
 };
 
@@ -122,6 +143,7 @@ const reset = () => {
         :key="task.id"
         :task="task"
         @del-task="delTask"
+        @updateStatus="updateTaskChecked"
       />
     </div>
   </div>

@@ -54,10 +54,10 @@ const delList = (listId: number) => {
 <template>
   <div class="main">
     <dialog :open="dialog">
-      <form>
+      <div>
         <input type="text" placeholder="Name" v-model="msgName" />
         <input type="color" value="#ffffff" v-model="color" />
-      </form>
+      </div>
       <button @click="dialog = false">Cancel</button>
       <button @click="addList">Add</button>
     </dialog>
