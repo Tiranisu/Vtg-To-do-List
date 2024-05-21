@@ -93,11 +93,14 @@ const reset = () => {
 <template>
   <div class="list">
     <dialog :open="dialogTask">
-      <div class="dialogBackground">
-        <form>
-          <input type="text" placeholder="Name" v-model="msgName" />
-          <input type="text" placeholder="Descr" v-model="msgDescr" />
-        </form>
+      <span>Create a new task :</span>
+      <div>
+        <input type="text" placeholder="Name" v-model="msgName" />
+      </div>
+      <div>
+        <input type="text" placeholder="Descr" v-model="msgDescr" />
+      </div>
+      <div id="dialogButtons">
         <button @click="dialogTask = false">Cancel</button>
         <button
           @click="
@@ -112,23 +115,26 @@ const reset = () => {
 
     <dialog :open="dialogTaskModif">
       <div class="dialogBackground">
-        <form>
+        <div>
           <input type="text" placeholder="Name" v-model="props.list.name" />
+        </div>
+        <div>
           <input type="color" v-model="props.list.color" />
-        </form>
-        <button @click="dialogTaskModif = false">Validate</button>
+        </div>
+        <div>
+          <button @click="dialogTaskModif = false">Validate</button>
+        </div>
       </div>
     </dialog>
 
     <div class="header">
-      <span>{{ list.name }}</span>
+      <span class="header-name">{{ list.name }}</span>
+      <!--      <hr />-->
       <div class="cardButtons">
         <button class="sort-button" @click="updateSortType">
           {{ sortType }}
         </button>
-        <button v-if="!readOnly" @click="dialogTask = true">
-          <img src="../assets/add.png" />
-        </button>
+
         <button v-if="!readOnly" @click="emits('delList', props.list.id)">
           <img src="../assets/delete.png" />
         </button>
@@ -145,22 +151,49 @@ const reset = () => {
         @del-task="delTask"
         @updateStatus="updateTaskChecked"
       />
+      <button v-if="!readOnly" @click="dialogTask = true">
+        <img src="../assets/add.png" />
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
+dialog {
+  border-radius: 0.7rem;
+  gap: 1rem;
+  #dialogButtons {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .list {
   background: v-bind(color);
   width: 20rem;
+  border-radius: 0.7em;
+  padding: 0.5em;
   display: flex;
   flex-direction: column;
+  box-shadow: 0.2rem 0.2rem 0.2rem #6d6a6a;
 }
 
 .tasks {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.header-name {
+  display: flex;
+  flex-direction: column;
+  &::after {
+    content: "";
+    width: 100%;
+    margin: 0.5rem 0;
+    border-bottom: blue 1px solid;
+  }
 }
 
 .cardButtons {
@@ -178,6 +211,16 @@ const reset = () => {
     width: 1rem;
     height: 1rem;
     margin: auto;
+  }
+}
+
+.tasks {
+  button {
+    width: 100%;
+    height: 2rem;
+    display: flex;
+    padding: 0;
+    justify-content: center;
   }
 }
 </style>

@@ -10,11 +10,11 @@ const mapLists = ref<Map<List["id"], List>>(new Map());
 const dList = computed(() => ({
   id: 1,
   name: "Done",
-  color: "#ff9090",
+  color: "rgba(255,144,144,0.52)",
   tasks: [...taskList.value],
 }));
 let msgName = ref("");
-let color = ref("white");
+let color = ref("#dadada");
 const dialog = ref(false);
 
 const addList = () => {
@@ -28,7 +28,7 @@ const addList = () => {
 
   dialog.value = false;
   msgName.value = "";
-  color.value = "white";
+  color.value = "#dadada";
 };
 
 const addTask = (listId: number, msgName: string, msgDescr: string) => {
@@ -54,17 +54,24 @@ const delList = (listId: number) => {
 <template>
   <div class="main">
     <dialog :open="dialog">
-      <div>
-        <input type="text" placeholder="Name" v-model="msgName" />
-        <input type="color" value="#ffffff" v-model="color" />
+      <div id="dialog-content">
+        <span>Create a new list :</span>
+        <div>
+          <input type="text" placeholder="Name" v-model="msgName" />
+        </div>
+        <div id="inputColor">
+          <input type="color" value="#c5c5c5" v-model="color" />
+        </div>
+        <div id="dialogButtons">
+          <button @click="dialog = false">Cancel</button>
+          <button @click="addList">Add</button>
+        </div>
       </div>
-      <button @click="dialog = false">Cancel</button>
-      <button @click="addList">Add</button>
     </dialog>
 
     <div id="title">
       <h2>To-do List</h2>
-      <button @click="dialog = true">+</button>
+      <button @click="dialog = true">+ Create new list</button>
     </div>
 
     <div class="lists">
@@ -80,8 +87,23 @@ const delList = (listId: number) => {
 </template>
 
 <style scoped>
+dialog {
+  border-radius: 0.7rem;
+  gap: 1rem;
+
+  #dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    #dialogButtons {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
 dialog::backdrop {
-  background-color: black;
+  background-color: #c5c5c5;
   opacity: 0.5;
   width: 100%;
   height: 100%;
@@ -92,13 +114,27 @@ dialog::backdrop {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(to bottom right, #e66465, #9198e5);
 }
 #title {
   display: flex;
   justify-content: center;
   padding: 1rem 1.5rem;
-  background: #9c9cfa;
   gap: 1rem;
+  background: #9c9cfa;
+  align-items: center;
+
+  button {
+    display: flex;
+    padding: 1rem 1.5rem;
+    justify-content: center;
+    transition: background-color 1s ease-in-out;
+    background-color: black;
+
+    &:hover {
+      background-color: red;
+    }
+  }
 }
 
 .lists {
@@ -106,5 +142,6 @@ dialog::backdrop {
   flex-direction: row;
   gap: 1.5rem;
   height: 100%;
+  padding: 1rem;
 }
 </style>

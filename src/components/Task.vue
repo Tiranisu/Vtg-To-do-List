@@ -41,11 +41,13 @@ const emits = defineEmits<{
 
 <style scoped>
 .task {
-  background: #dcdc86;
+  background: #ffffff;
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  border-radius: 0.5rem;
+  box-shadow: 0.2rem 0.2rem 0.2rem #6d6a6a;
 }
 
 .info {
